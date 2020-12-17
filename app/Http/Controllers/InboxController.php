@@ -9,16 +9,11 @@ use Illuminate\Support\Facades\Config;
 
 class InboxController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
-        $user = session('user');
-        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $user->email, $user->password)
+        $user = auth()->user();
+        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $user->email, $user->plain_password)
         or die('Cannot connect to Gmail: ' . imap_last_error());
         $emailData = imap_search($connection, 'SUBJECT "VMail - " UNSEEN');
 
@@ -48,11 +43,9 @@ class InboxController extends Controller
         } // End if
 
         $inboxMails = Inbox::all();
-        if(isAuthenticated()) {
-            return view('dashboard.inbox.index', ['inboxMails'=>$inboxMails]);
-        } else {
-            return redirect('login');
-        }
+
+        return view('dashboard.inbox.index', ['inboxMails'=>$inboxMails]);
+
     }
 
     /**
@@ -76,22 +69,13 @@ class InboxController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Inbox $inbox
-     * @param $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Inbox $inbox, $id)
     {
         //
         $inbox = Inbox::findOrFail($id);
-        if(isAuthenticated()) {
-            return view('dashboard.inbox.email', ['inbox'=>$inbox]);
-        } else {
-            return redirect('login');
-        }
+
+        return view('dashboard.inbox.email', ['inbox'=>$inbox]);
+
     }
 
     /**
@@ -117,12 +101,7 @@ class InboxController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Inbox  $inbox
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Inbox $inbox)
     {
         //

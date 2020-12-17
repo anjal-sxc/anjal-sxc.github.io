@@ -30,7 +30,7 @@
 
             <div class="sb-sidenav-footer align-bottom">
                 <div class="small">Logged in as:</div>
-                {{ session('user')->first_name.' '.session('user')->last_name }}
+                {{ auth()->user()->name }}
             </div>
     </nav>
 </div>

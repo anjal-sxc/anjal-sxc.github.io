@@ -9,21 +9,12 @@ use Illuminate\Support\Facades\Mail;
 
 class SentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
+        return view('dashboard.sent.index', ['sentMails'=>Sent::all()]);
 
-
-        if(isAuthenticated()) {
-            return view('dashboard.sent.index', ['sentMails'=>Sent::all()]);
-        } else {
-            return redirect('login');
-        }
     }
 
     /**
@@ -36,16 +27,9 @@ class SentController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $user
-     * @return void
-     */
     public function store(Request $request)
     {
-        $user = User::where('email', session('email'))->get()->first();
+        $user = auth()->user();
 //        $password = $user->password;
 //        $fromEmail = $request->get('fromEmail');
 //        $to = $request->get('to');
@@ -76,22 +60,14 @@ class SentController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Sent $sent
-     * @param $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Sent $sent, $id)
     {
         //
         $sent = Sent::findOrFail($id);
-        if(isAuthenticated()) {
-            return view('dashboard.sent.email', ['sent'=>$sent]);
-        } else {
-            return redirect('login');
-        }
+
+        return view('dashboard.sent.email', ['sent'=>$sent]);
+
     }
 
     /**
@@ -117,13 +93,7 @@ class SentController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Sent $sent
-     * @param $id
-     * @return void
-     */
+
     public function destroy(Sent $sent)
     {
         //

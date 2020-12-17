@@ -15,8 +15,8 @@
 
 
 
-                <div id="layoutAuthentication">
-                    <div id="layoutAuthentication_content">
+                <div id="layoutCompose">
+                    <div id="layoutCompose_content">
                         <main>
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -30,7 +30,7 @@
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">From: </label>
                                                         <input name="fromEmail" class="form-control py-4" id="inputEmailAddress"
                                                                type="email" aria-describedby="emailHelp" placeholder="Enter email"
-                                                        value="{{ session('user')->email }}"/></div>
+                                                        value="{{ auth()->user()->email }}" readonly/></div>
 
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">To: </label>
                                                         <input name="to" class="form-control py-4" id="inputEmailAddress"
@@ -41,7 +41,7 @@
                                                                type="text" aria-describedby="emailHelp" placeholder="Enter subject" /></div>
 
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Body: </label>
-                                                        <textarea  class="form-control py-4" name="body" id="" cols="" rows=""></textarea></div>
+                                                        <textarea  class="form-control py-4" name="body" id="composeMessage" cols="" rows=""></textarea></div>
 
                                                     <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">Send</button></div>
                                                 </form>

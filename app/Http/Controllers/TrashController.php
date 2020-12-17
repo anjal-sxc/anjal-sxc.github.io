@@ -9,11 +9,7 @@ use phpDocumentor\Reflection\Type;
 
 class TrashController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
@@ -23,14 +19,9 @@ class TrashController extends Controller
 
         $trashMails = array_merge($inboxMails, $sentMails);
 
-
-        if(isAuthenticated()) {
-            return view('dashboard.trash', [
-                'trashMails' => $trashMails,
-            ]);
-        } else {
-            return redirect('login');
-        }
+        return view('dashboard.trash', [
+            'trashMails' => $trashMails,
+        ]);
     }
 
     /**

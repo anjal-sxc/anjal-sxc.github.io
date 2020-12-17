@@ -12,7 +12,10 @@
     <!-- Navbar-->
     <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item">
-            <a  href="{{ route('logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-out-alt"></i></button>
+            </form>
         </li>
     </ul>
 </nav>

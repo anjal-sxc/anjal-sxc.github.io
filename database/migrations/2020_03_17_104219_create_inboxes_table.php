@@ -16,8 +16,8 @@ class CreateInboxesTable extends Migration
         Schema::create('inboxes', function (Blueprint $table) {
             $table->id();
             $table->string('from');
-            $table->string('subject')->unique();
-            $table->text('body')->unique();
+            $table->string('subject');
+            $table->text('body');
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedInteger('user_id');
