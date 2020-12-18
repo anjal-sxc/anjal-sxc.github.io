@@ -9,7 +9,7 @@
 
 
     <div id="layoutSidenav_content">
-        <main>
+        <main id="sentEmailLayout">
             <div class="container-fluid">
                 <br>
                 <ol class="breadcrumb mb-4">
@@ -19,9 +19,9 @@
                 <div class="card mb-4">
                     <div class="card-header"><i class="fas fa-table mr-1"></i>Sent Email</div>
                     <div class="card-body">
-                        <p>From: {{ session('user')->email }}</p>
-                        <p>To: {{ $sent->to }}</p>
-                        <p>Subject: {{ $sent->subject }}</p>
+                        <p>From: {{ auth()->user()->email }}.</p>
+                        <p>To: {{ $sent->to }}.</p>
+                        <p>Subject: {{ $sent->subject }}.</p>
                         <p>Date: {{ $sent->created_at }}</p>
                         <br>
                         <p>{{ $sent->body }}</p>
@@ -30,7 +30,7 @@
                 <form method="POST" action="{{ route('sent') }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $sent->id }}">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-danger" tabindex="1">Delete</button>
                 </form>
 
 
@@ -43,11 +43,6 @@
 
     </div>
 
-
-
-
-
-    </div>
 
 @endsection
 

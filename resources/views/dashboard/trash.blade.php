@@ -61,8 +61,8 @@
                                                 @else
                                                     <input type="hidden" name="origin" value="Inbox">
                                                 @endif
-                                                <button type="submit" name="restore" class="btn btn-success">Restore</button>
-                                                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                                                <button type="submit" name="restore" class="btn btn-success" tabindex="1">Restore</button>
+                                                <button type="submit" name="delete" class="btn btn-danger" tabindex="2">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

@@ -30,26 +30,27 @@ class SentController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-//        $password = $user->password;
-//        $fromEmail = $request->get('fromEmail');
-//        $to = $request->get('to');
-//        $subject = $request->get('subject');
-//        $body = $request->get('body');
-//
-//
-//        config('MAIL_USERNAME', $fromEmail);
-//        config('MAIL_PASSWORD', $password);
-//
-//        Mail::raw($body, function ($message) use ($fromEmail, $to, $subject) {
-//            $message->from($fromEmail);
-//            $message->subject($subject);
-//            $message->to($to);
-//
-//        });
+
+        $fromEmail = $request->get('fromEmail');
+        $to = $request->get('to').'@vmail.com';
+        $subject = $request->get('subject');
+        $body = $request->get('body');
+
+//        $data['from'] = $fromEmail;
+//        $data['to'] = $to;
+//        $data['subject'] = $subject;
+//        $data['body'] = $body;
+
+
+        Mail::raw($body, function ($message) use ($fromEmail, $to, $subject) {
+            $message->from($fromEmail);
+            $message->subject($subject);
+            $message->to($to);
+        });
 
 
         Sent::create([
-            'to' => request('to'),
+            'to' => $to,
             'subject' => request('subject'),
             'body' => request('body'),
             'user_id'  => $user->id

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Inbox extends Model
 {
     //
-    protected $fillable = [
-      'from', 'subject', 'body', 'user_id'
-    ];
+    protected $guarded = [];
 
     use SoftDeletes;
 

@@ -28,22 +28,22 @@
                                                     @csrf
 
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">From: </label>
-                                                        <input name="fromEmail" class="form-control py-4" id="inputEmailAddress"
+                                                        <input name="fromEmail" class="form-control py-4" id=""
                                                                type="email" aria-describedby="emailHelp" placeholder="Enter email"
                                                         value="{{ auth()->user()->email }}" readonly/></div>
 
-                                                    <div class="form-group"><label class="small mb-1" for="inputEmailAddress">To: </label>
-                                                        <input name="to" class="form-control py-4" id="inputEmailAddress"
-                                                               type="email" aria-describedby="emailHelp" placeholder="Enter email" /></div>
+                                                    <div class="form-group"><label class="small mb-1" for="emailTo">To: </label>
+                                                        <input name="to" class="form-control py-4" id="emailTo"
+                                                               type="text" aria-describedby="emailHelp" placeholder="Enter email" /></div>
 
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Subject: </label>
-                                                        <input name="subject" class="form-control py-4" id="inputEmailAddress"
+                                                        <input name="subject" class="form-control py-4" id="emailSubject"
                                                                type="text" aria-describedby="emailHelp" placeholder="Enter subject" /></div>
 
                                                     <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Body: </label>
-                                                        <textarea  class="form-control py-4" name="body" id="composeMessage" cols="" rows=""></textarea></div>
+                                                        <textarea  class="form-control py-4" name="body" id="emailBody" cols="" rows=""></textarea></div>
 
-                                                    <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block">Send</button></div>
+                                                    <div class="form-group mt-4 mb-0"><button type="submit" class="btn btn-primary btn-block" id="emailSend">Send</button></div>
                                                 </form>
                                             </div>
 

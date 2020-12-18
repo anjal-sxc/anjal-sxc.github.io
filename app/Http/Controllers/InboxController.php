@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Inbox;
 use App\Sent;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Http;
 
 class InboxController extends Controller
 {
@@ -13,27 +15,53 @@ class InboxController extends Controller
     {
         //
         $user = auth()->user();
-        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $user->email, $user->plain_password)
-        or die('Cannot connect to Gmail: ' . imap_last_error());
-        $emailData = imap_search($connection, 'SUBJECT "VMail - " UNSEEN');
 
-        if (!empty($emailData)) {
-            foreach ($emailData as $emailIdent) {
 
-                $overview = imap_fetch_overview($connection, $emailIdent, 0);
-                $from = $overview[0]->from;
-                $subject = $overview[0]->subject;
-                $body = imap_fetchbody($connection, $emailIdent, "1.1");
+//        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $user->email, $user->plain_password)
+//        or die('Cannot connect to Gmail: ' . imap_last_error());
+//        $emailData = imap_search($connection, 'SUBJECT "VMail - " UNSEEN');
 
-                if ($body == "") {
-                    $body = imap_fetchbody($connection, $emailIdent, "1");
-                }
+        $client = new Client();
+        $token = 'f3825659be47f337ed78cebfe43976d5';
+        $inbox_id = 1162893;
+        $uri = 'https://mailtrap.io/api/v1/inboxes/'.$inbox_id.'/messages/';
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Accept'        => 'application/json',
+        ];
 
-                $body = quoted_printable_decode($body);
+//        $response = $client->get('https://mailtrap.io/api/v1/inboxes', [
+//            'headers' => $headers,
+//        ]);
+//
+//        $inboxes = json_decode($response->getBody()->getContents());
+//        $inbox = $inboxes[0];
 
-                Inbox::create([
-                   'from' => $from,
-                   'subject' => $subject,
+        $response = $client->get($uri, [
+            'headers' => $headers,
+        ]);
+
+        $emails = json_decode($response->getBody()->getContents());
+
+        $data = $uri.$emails[0]->id.'/body.htmlsource';
+
+
+
+
+        if (!empty($emails)) {
+            foreach ($emails as $email) {
+
+                $response = $client->get($uri.$email->id.'/body.txt', [
+                    'headers' => $headers,
+                ]);
+
+                $body = $response->getBody()->getContents();
+
+
+                Inbox::updateOrCreate([
+                    'email_id' => $email->id,
+                   'from' => $email->from_email,
+                   'subject' => $email->subject,
                    'body' => $body,
                     'user_id' => $user->id,
                 ]);

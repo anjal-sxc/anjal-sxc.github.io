@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('phpinfo', function () {
+    echo get_cfg_var('cfg_file_path');
+    echo phpinfo();
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
