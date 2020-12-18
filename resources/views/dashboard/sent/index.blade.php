@@ -44,7 +44,7 @@
                                     <tbody>
 
                                 @foreach($sentMails as $sent)
-                                    <tr onkeypress="window.location='/dashboard/sent/{{ $sent->id }}'" tabindex="1">
+                                    <tr onkeypress="window.location='/dashboard/sent/{{ $sent->id }}'" tabindex="1" class="emailRow">
                                         <td>{{ $sent->id }}</td>
                                         <td>{{ $sent->to }}</td>
                                         <td>{{ $sent->subject }}</td>

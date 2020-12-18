@@ -8,13 +8,13 @@
 
 
     <div id="layoutSidenav_content">
-        <main>
+        <main id="dashboard">
             <div class="container-fluid">
                 <br>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
-                <div class="row">
+                <div class="row dashboardLinks">
                     <div class="col-xl-4 col-md-6">
                         <a href="{{ route('inbox') }}">
                         <div class="card bg-info text-white mb-4">
@@ -52,8 +52,18 @@
 
 
 
-</div>
 
+
+
+
+@endsection
+
+@section('script')
+    <script>
+        $('#dashboard').on('click', function () {
+            say('Welcome to dashboard!');
+        });
+    </script>
 @endsection
 
 

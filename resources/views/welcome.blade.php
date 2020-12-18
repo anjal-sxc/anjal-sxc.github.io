@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>VMail - Voice Based E-Mail for Visually Impaired People</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -12,8 +12,8 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
-                color: #007bff;
+                background-color: #f5fbfd;
+                color: #87ceeb;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -30,6 +30,10 @@
                 justify-content: center;
             }
 
+            .flex-column {
+                flex-direction: column;
+            }
+
             .position-ref {
                 position: relative;
             }
@@ -44,12 +48,26 @@
                 text-align: center;
             }
 
-            .title {
-                font-size: 84px;
+
+            .title h1 {
+                font-size: 100pt;
+                margin: 0;
+            }
+
+
+            .title p {
+                margin: 0;
+                font-size: 20pt;
+                font-weight: bold;
+            }
+
+            .links {
+                position: relative;
+                bottom: 100px;
             }
 
             .links > a {
-                color: #007bff;
+                color: #87ceeb;
                 padding: 0 25px;
                 font-size: 30px;
                 font-weight: 600;
@@ -63,29 +81,34 @@
             }
         </style>
     </head>
-    <body id="welcome">
-        <div class="flex-center position-ref full-height">
+
+    <body id="welcome" class="flex-center flex-column">
+
+        <div class="flex-center position-ref full-height" id="welcomePage">
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title">
                     <h1>VMail</h1>
+                    <p class="text-sm">A voice based e-mail system for visually impaired people...</p>
                 </div>
 
-                <div class="links">
-                    <a id="login" href="login">Login</a>
-                    <a id="register" href="register">Register</a>
-                </div>
+
             </div>
         </div>
-    </body>
+
+        <div class="links">
+            <a id="login" href="login" tabindex="1">Login</a>
+            <a id="register" href="register" tabindex="2">Register</a>
+        </div>
+
 
     <script type="text/javascript" src="{{ asset('js/functions.js') }}"></script>
     <script type="text/javascript">
 
-        window.addEventListener('click', function () {
-            say('Hello, welcome to v mail! Use TAB key from third row and SHIFT key from fifth row ' +
-                'to navigate through the website. use ENTER key to select.' +
-                'Click anywhere to listen to the help.');
+        document.getElementById('welcomePage').addEventListener('click', function () {
+            say('Hello, welcome to v mail! Use TAB ' +
+                'to navigate. Use ENTER to select. ' +
+                'Click anywhere for help.');
         });
 
 
@@ -99,5 +122,6 @@
 
     </script>
 
+    </body>
 
 </html>

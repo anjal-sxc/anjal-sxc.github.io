@@ -7,6 +7,8 @@ function say(message) {
     utterThis.pitch = pitch;
     utterThis.rate = rate;
     synth.speak(utterThis);
+
+    return;
 }
 
  window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
@@ -44,6 +46,8 @@ function listenEmailBody() {
 
     recognition.onerror = function () {
         say('Try again');
+        emailBody.val('');
+        emailBody.focus();
     }
 
  }
@@ -69,6 +73,7 @@ function listenEmailBody() {
 
      recognition.onerror = function () {
          say('Try again');
+         emailSubject.focus();
      }
  }
 
@@ -94,5 +99,31 @@ function listenEmailBody() {
 
      recognition.onerror = function () {
          say('Try again');
+         emailTo.focus();
+     }
+ }
+
+ function listenInput(element) {
+
+     recognition.start();
+
+     recognition.onresult = (event) => {
+
+         current = event.resultIndex;
+
+         transcript = event.results[0][0].transcript;
+
+         speechToText = transcript;
+
+         element.val(speechToText);
+     }
+
+     recognition.onspeechend = function () {
+         say('End');
+     }
+
+     recognition.onerror = function () {
+         say('Try again');
+         element.focus();
      }
  }

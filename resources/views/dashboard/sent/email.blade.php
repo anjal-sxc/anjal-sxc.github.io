@@ -9,7 +9,7 @@
 
 
     <div id="layoutSidenav_content">
-        <main id="sentEmailLayout">
+        <main class="emailDetails">
             <div class="container-fluid">
                 <br>
                 <ol class="breadcrumb mb-4">
@@ -22,7 +22,7 @@
                         <p>From: {{ auth()->user()->email }}.</p>
                         <p>To: {{ $sent->to }}.</p>
                         <p>Subject: {{ $sent->subject }}.</p>
-                        <p>Date: {{ $sent->created_at }}</p>
+                        <p>Date: {{ $sent->created_at->format('l, jS F, Y. h:i:s A') }}</p>
                         <br>
                         <p>{{ $sent->body }}</p>
                     </div>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Inbox;
 use App\Sent;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
+use mysql_xdevapi\Exception;
 
 class InboxController extends Controller
 {
@@ -15,11 +17,6 @@ class InboxController extends Controller
     {
         //
         $user = auth()->user();
-
-
-//        $connection = imap_open('{imap.gmail.com:993/imap/ssl}INBOX', $user->email, $user->plain_password)
-//        or die('Cannot connect to Gmail: ' . imap_last_error());
-//        $emailData = imap_search($connection, 'SUBJECT "VMail - " UNSEEN');
 
         $client = new Client();
         $token = 'f3825659be47f337ed78cebfe43976d5';
@@ -29,13 +26,6 @@ class InboxController extends Controller
             'Authorization' => 'Bearer ' . $token,
             'Accept'        => 'application/json',
         ];
-
-//        $response = $client->get('https://mailtrap.io/api/v1/inboxes', [
-//            'headers' => $headers,
-//        ]);
-//
-//        $inboxes = json_decode($response->getBody()->getContents());
-//        $inbox = $inboxes[0];
 
         $response = $client->get($uri, [
             'headers' => $headers,
@@ -135,6 +125,26 @@ class InboxController extends Controller
         //
         $id = \request()->get('id');
         $inbox = Inbox::findOrFail($id);
+
+        $client = new Client();
+        $token = 'f3825659be47f337ed78cebfe43976d5';
+        $inbox_id = 1162893;
+        $uri = 'https://mailtrap.io/api/v1/inboxes/'.$inbox_id.'/messages/'.$inbox->email_id;
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Accept'        => 'application/json',
+        ];
+
+        try {
+            $client->delete($uri, [
+                'headers' => $headers,
+            ]);
+        } catch (ClientException $exception) {
+            $inbox->delete();
+            return redirect('/dashboard/inbox');
+        }
+
+
         $inbox->delete();
 
         return redirect('/dashboard/inbox');
