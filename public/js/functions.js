@@ -1,6 +1,6 @@
  synth = window.speechSynthesis;
  pitch = 1
- rate = 0.7
+ rate = 0.9
 
 function say(message) {
     var utterThis = new SpeechSynthesisUtterance(message);
@@ -18,13 +18,15 @@ function say(message) {
  let emailSubject = $('#emailSubject');
  let emailTo = $('#emailTo');
  let speechToText = '';
+ let bodyText = '';
 
 function listenEmailBody() {
 
+
     recognition.continuous = true;
 
-     if (speechToText.length) {
-         speechToText += ' ';
+     if (bodyText.length) {
+         bodyText += ' ';
      }
 
      recognition.start();
@@ -35,9 +37,9 @@ function listenEmailBody() {
 
         transcript = event.results[current][0].transcript;
 
-        speechToText += transcript;
+        bodyText += transcript;
 
-         emailBody.val(speechToText);
+         emailBody.val(bodyText);
      }
 
     recognition.onspeechend = function () {
@@ -69,6 +71,7 @@ function listenEmailBody() {
 
      recognition.onspeechend = function () {
          say('End');
+         speechToText = '';
      }
 
      recognition.onerror = function () {

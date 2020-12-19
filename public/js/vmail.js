@@ -44,8 +44,8 @@ $(document).ready(function () {
         say('Login.');
     });
 
-    $('#signUp').on('focus', function () {
-        say('Sign up.');
+    $('#registerButton').on('focus', function () {
+        say('Register.');
     });
 
     $('input[name="name"]').on('focus', function () {
@@ -126,7 +126,13 @@ $(document).ready(function () {
     $('.emailRow').on('focus', function () {
         let subject = $(this).children('td').eq(2).text();
         say('Email about '+subject);
-    })
+    });
+
+    $('.trashRow').on('focus', function () {
+        let origin = $(this).children('td').eq(1).text();
+        let subject = $(this).children('td').eq(2).text();
+        say('Email form ' + origin + '. About ' + subject);
+    });
 
 
 

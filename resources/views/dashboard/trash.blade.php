@@ -43,7 +43,7 @@
                                     <tbody>
 
                                     @foreach($trashMails as $trash)
-                                    <tr>
+                                    <tr tabindex="1" class="trashRow">
                                         <td>{{ $trash['id'] }}</td>
                                         @if(key_exists('to', $trash))
                                             <td>Sent</td>
