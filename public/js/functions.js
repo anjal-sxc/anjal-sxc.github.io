@@ -97,10 +97,10 @@ function listenEmailBody() {
 
      recognition.onspeechend = function () {
          say('End');
-
      }
 
-     recognition.onerror = function () {
+     recognition.onerror = function (e) {
+         console.log(e);
          say('Try again');
          emailTo.focus();
      }
@@ -108,6 +108,7 @@ function listenEmailBody() {
 
  function listenInput(element) {
 
+    recognition.stop();
      recognition.start();
 
      recognition.onresult = (event) => {

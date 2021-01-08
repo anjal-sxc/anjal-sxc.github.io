@@ -18,21 +18,21 @@
                     <div class="col-xl-4 col-md-6">
                         <a href="{{ route('inbox') }}">
                         <div class="card bg-info text-white mb-4">
-                            <div class="card-body"><h1>Inbox <span class="badge badge-light">{{ \App\Inbox::all()->count() }}</span></h1></div>
+                            <div class="card-body"><h1>Inbox <span class="badge badge-light">{{ \App\Inbox::where('user_id', Auth::id())->get()->count() }}</span></h1></div>
                         </div>
                         </a>
                     </div>
                     <div class="col-xl-4 col-md-6">
                         <a href="{{ route('sent') }}">
                         <div class="card bg-success text-white mb-4">
-                            <div class="card-body"><h1>Sent <span class="badge badge-light">{{ \App\Sent::all()->count() }}</span></h1></div>
+                            <div class="card-body"><h1>Sent <span class="badge badge-light">{{ \App\Sent::where('user_id', Auth::id())->get()->count() }}</span></h1></div>
                         </div>
                         </a>
                     </div>
                     <div class="col-xl-4 col-md-6">
                         <a href="{{ route('trash') }}">
                         <div class="card bg-danger text-white mb-4">
-                            <div class="card-body"><h1>Trash <span class="badge badge-light">{{ \App\Inbox::onlyTrashed()->count() + \App\Sent::onlyTrashed()->count() }}</span></h1></div>
+                            <div class="card-body"><h1>Trash <span class="badge badge-light">{{ \App\Inbox::where('user_id', Auth::id())->onlyTrashed()->get()->count() + \App\Sent::where('user_id', Auth::id())->onlyTrashed()->get()->count() }}</span></h1></div>
                         </div>
                         </a>
                     </div>

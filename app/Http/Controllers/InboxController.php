@@ -60,7 +60,7 @@ class InboxController extends Controller
 
         } // End if
 
-        $inboxMails = Inbox::all();
+        $inboxMails = Inbox::where('user_id', $user->id)->get();
 
         return view('dashboard.inbox.index', ['inboxMails'=>$inboxMails]);
 
